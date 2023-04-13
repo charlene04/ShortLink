@@ -4,7 +4,12 @@ const myCache = new NodeCache({ stdTTL: 1800 }); // Time To Live: 30 minutes
 
 // save key, value to memory 
 exports.saveToMemory = function (key, value) {
-    myCache.set(key, value);
+    let obj = {
+        url: value,
+        shortUrl: 'http://short.est/' + key,
+        date_encoded: new Date().toLocaleString()
+    };
+    myCache.set(key, obj);
 }
 
 // Get value from memory using key
