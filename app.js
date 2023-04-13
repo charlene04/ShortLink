@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const { encode } = require("./utils/codec");
+const { encode, decode } = require("./utils/codec");
 
 app.use(express.json());       
 app.use(express.urlencoded({ extended: true }));
@@ -9,6 +9,17 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/encode', (req, res) => {
     let longUrl = req.body.url;
     return res.status(200).json({ shortUrl: encode(longUrl) }); 
+})
+
+app.post('/decode', (req, res) => {
+    let url = decode(req.body.url);
+    if (url) {
+        return res.status(200).json({ originalUrl: url });
+    }
+    return res.status(404).json({
+        status: 404,
+        message: 'Not Found'
+    });
 })
 
 
