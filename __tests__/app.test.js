@@ -18,10 +18,12 @@ describe('Testing encode/decode/statistic endpoints', () => {
         body = JSON.parse(response.text);
         expect(body.shortUrl).toBeDefined();
         expect(body.shortUrl).toContain('http://short.est/');
+    });
 
+    it('respond with valid HTTP status code, content-type and correct data for querying stats', async () => {
         // Querying stats
         let key = new URL(body.shortUrl).pathname.split('/')[1];
-        response = await request(app).get(`/statistic/${key}`);
+        let response = await request(app).get(`/statistic/${key}`);
         expect(response.statusCode).toBe(200);
         expect(response.headers['content-type']).toEqual(expect.stringContaining("json"));
         body = JSON.parse(response.text);
@@ -29,9 +31,11 @@ describe('Testing encode/decode/statistic endpoints', () => {
         expect(body.stats.url).toBeDefined();
         expect(body.stats.shortUrl).toBeDefined();
         expect(body.stats.date_encoded).toBeDefined();
-            
+    });
+
+     it('respond with valid HTTP status code, content-type and correct data for decoding', async () => {    
         // Decoding shortUrl
-        response = await request(app).post('/decode').send({ url: body.stats.shortUrl });
+        let response = await request(app).post('/decode').send({ url: body.stats.shortUrl });
         expect(response.statusCode).toBe(200);
         expect(response.headers['content-type']).toEqual(expect.stringContaining("json"));
         body = JSON.parse(response.text);
