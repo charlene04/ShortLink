@@ -1,6 +1,11 @@
 ## ShortLink: A URL Shortening Service
 - This is a simple Node js application that can encode long urls into shortened url. Flipping the coin, the shortened url can be be decoded into the original long url. In addition, the API also exposees a `statistics/:key` endpoint for fetching statistical data.
 
+### Endpoints
+- `POST: /encode`
+- `POST: /decode`
+- `GET: /statistic/:key`
+
 ### Prerequisite
 1. Node v16.17.1 (preferably, but v14.x.x at the very least)
 2. Postman (for manual API testing)
