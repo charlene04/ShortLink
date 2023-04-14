@@ -14,10 +14,7 @@ exports.saveToMemory = function (key, value) {
 
 // Get value from memory using key
 exports.getFromMemory = function (key) {
-    if (myCache.has(key)) {
-        return myCache.get(key);
-    }
-    return null;
+    return myCache.get(key);
 }
 
 // Checks if key exists in order not to override existing keys
