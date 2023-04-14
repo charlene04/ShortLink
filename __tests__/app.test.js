@@ -1,6 +1,12 @@
 const request = require('supertest');
 
 const app = require('../app');
+
+afterAll(done => {
+    app.close();
+    done();
+})
+
 let body;
 
 describe('Testing encode/decode/statistic endpoints', () => {
