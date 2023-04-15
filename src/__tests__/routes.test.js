@@ -1,9 +1,9 @@
 const request = require('supertest');
 
-const app = require('../app');
+const server = require('../server');
 
 afterAll(done => {
-    app.close();
+    server.close();
     done();
 })
 
@@ -12,7 +12,7 @@ let body;
 describe('Testing encode/decode/statistic endpoints', () => {
     it('respond with valid HTTP status code, content-type and correct data for encoding', async () => {
         // Encoding long url
-        let response = await request(app).post('/encode').send({ url: 'https://google.com/test/'});
+        let response = await request(server).post('/encode').send({ url: 'https://google.com/test/'});
         expect(response.statusCode).toBe(200);
         expect(response.headers['content-type']).toEqual(expect.stringContaining("json"));
         body = JSON.parse(response.text);
@@ -23,7 +23,7 @@ describe('Testing encode/decode/statistic endpoints', () => {
     it('respond with valid HTTP status code, content-type and correct data for querying stats', async () => {
         // Querying stats
         let key = new URL(body.shortUrl).pathname.split('/')[1];
-        let response = await request(app).get(`/statistic/${key}`);
+        let response = await request(server).get(`/statistic/${key}`);
         expect(response.statusCode).toBe(200);
         expect(response.headers['content-type']).toEqual(expect.stringContaining("json"));
         body = JSON.parse(response.text);
@@ -35,7 +35,7 @@ describe('Testing encode/decode/statistic endpoints', () => {
 
      it('respond with valid HTTP status code, content-type and correct data for decoding', async () => {    
         // Decoding shortUrl
-        let response = await request(app).post('/decode').send({ url: body.stats.shortUrl });
+        let response = await request(server).post('/decode').send({ url: body.stats.shortUrl });
         expect(response.statusCode).toBe(200);
         expect(response.headers['content-type']).toEqual(expect.stringContaining("json"));
         body = JSON.parse(response.text);
@@ -44,7 +44,7 @@ describe('Testing encode/decode/statistic endpoints', () => {
     });
 
     it('responds with 404 HTTP status code and Not Found message when querying inexistent stats', async () => {
-        let response = await request(app).get(`/statistic/re4345`);
+        let response = await request(server).get(`/statistic/re4345`);
                 
         expect(response.statusCode).toBe(404);
         expect(response.headers['content-type']).toEqual(expect.stringContaining("json"));
@@ -53,7 +53,7 @@ describe('Testing encode/decode/statistic endpoints', () => {
     });
 
     it('responds with 404 HTTP status code and Not Found message when decoding inexistent shortUrl', async () => {
-        let response = await request(app).post('/decode').send({ url: 'http://short.est/54trty' });
+        let response = await request(server).post('/decode').send({ url: 'http://short.est/54trty' });
                 
         expect(response.statusCode).toBe(404);
         expect(response.headers['content-type']).toEqual(expect.stringContaining("json"));
