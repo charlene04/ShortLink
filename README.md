@@ -6,17 +6,35 @@
 - `POST: /decode`
 - `GET: /statistic/:key`
 
-### Prerequisite
-1. Node v16.17.1 (preferably, but v14.x.x at the very least)
-2. Postman (for manual API testing)
+## 💻 Getting started
+
+### Requirements
+
+- [Node.js](https://nodejs.org/en/)  v16.17.1 (preferably, but v14.x.x at the very least)
+- [npm](https://www.npmjs.com/)
+- [Postman](https://www.postman.com/downloads/) for manual API testing
 
 ### SETUP
 
 #### Start the server
-1. Clone the repo into your local machine
-2. `cd` into the project directory and run `npm install` to install project dependencies
-3. run `npm start` to start the server
 
+**Clone the project and access the folder**
+
+```bash
+$ git clone https://github.com/charlene04/shortlink.git
+
+$ cd shortlink
+```
+
+**Follow the steps below**
+
+```bash
+# Install the dependencies
+$ npm install
+
+# Run the server
+$ npm start
+```
 
 #### Testing with Postman
 
@@ -25,7 +43,7 @@
 2. Enter `http://localhost:3000/encode` in the postman address bar (`3000` is the port the Node server is running on)
 3. Select `POST` as the request method from the actions dropdown
 4. Select `Body` as data type and provide a JSON object containing `url` as key, and any long url of choice as its value. For example:
-```
+```js
 {
     "url": "https://googgle.com/my-profile-testing"
 }
@@ -40,7 +58,7 @@
 1. Enter `http://localhost:3000/decode` in the postman address bar (`3000` is the port the Node server is running on)
 2. Select `POST` as the request method from the actions dropdown
 3. Select `Body` as data type and provide a JSON object containing `url` as key, and `shortUrl` gotten from ENCODING step above as its value. For example:
-```
+```js
 {
     "url": "https://short.est/my4rt5"
 }
