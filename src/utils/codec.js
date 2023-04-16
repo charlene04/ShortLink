@@ -13,8 +13,12 @@ exports.encode = function (longUrl) {
     } while (keyExists(key));
 
     let shortUrl = 'http://short.est/' + key;
-    
-    saveToMemory(key, longUrl);
+    let obj = {
+        url: longUrl,
+        shortUrl: shortUrl,
+        date_encoded: new Date().toLocaleString()
+    };
+    saveToMemory(key, obj);
     return shortUrl;
 }
 
