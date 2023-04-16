@@ -13,7 +13,10 @@ exports.encode = function () {
     } while (keyExists(key));
 
     let shortUrl = 'http://short.est/' + key;
-    return shortUrl;
+    return {
+        key,
+        shortUrl
+    }
 }
 
 // declare all characters

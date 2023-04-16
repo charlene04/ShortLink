@@ -3,7 +3,7 @@ const { saveToMemory } = require("../utils/memory");
 
 exports.encodeRouteHandler = (req, res) => {
     let longUrl = req.body.url;
-    let shortUrl = encode();
+    let { key, shortUrl } = encode();
     
     // save to memory
     let obj = {
