@@ -1,4 +1,4 @@
-const { getFromMemory, keyExists, saveToMemory } = require("./memory");
+const { getFromMemory, keyExists } = require("./memory");
 
 exports.decode = function (shortUrl) {
     let key = new URL(shortUrl).pathname.split('/')[1];
@@ -6,19 +6,13 @@ exports.decode = function (shortUrl) {
     return null;
 }
 
-exports.encode = function (longUrl) {
+exports.encode = function () {
     let key;
     do {
         key = generateString(6);
     } while (keyExists(key));
 
     let shortUrl = 'http://short.est/' + key;
-    let obj = {
-        url: longUrl,
-        shortUrl: shortUrl,
-        date_encoded: new Date().toLocaleString()
-    };
-    saveToMemory(key, obj);
     return shortUrl;
 }
 
